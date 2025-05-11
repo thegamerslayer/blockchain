@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Composer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <img src="/api/placeholder/200/60" alt="Blockchain Composer Logo" class="logo">
+                <h1>Blockchain Composer</h1>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-project-diagram"></i> Business Networks</a></li>
+                <li><a href="#"><i class="fas fa-file-alt"></i> Model Files</a></li>
+                <li><a href="#"><i class="fas fa-code"></i> Script Files</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Access Control</a></li>
+                <li><a href="#"><i class="fas fa-cube"></i> Query Files</a></li>
+                <li><a href="#"><i class="fas fa-history"></i> Transaction History</a></li>
+                <li><a href="#"><i class="fas fa-wrench"></i> Settings</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <button class="btn-help"><i class="fas fa-question-circle"></i> Help</button>
+                <div class="connection-status connected">
+                    <span class="status-dot"></span>
+                    <span>Connected to Network</span>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="breadcrumb">
+                    <a href="#">Home</a> / <a href="#">Dashboard</a>
+                </div>
+                <div class="header-actions">
+                    <div class="search-container">
+                        <input type="text" placeholder="Search...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    <button class="btn-notifications"><i class="fas fa-bell"></i></button>
+                    <div class="user-profile">
+                        <img src="/api/placeholder/40/40" alt="User Profile" class="profile-image">
+                        <span>User Name</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h2>Dashboard</h2>
+                    <div class="btn-group">
+                        <button class="btn btn-primary"><i class="fas fa-plus"></i> New Network</button>
+                        <button class="btn btn-secondary"><i class="fas fa-upload"></i> Import</button>
+                        <button class="btn btn-secondary"><i class="fas fa-download"></i> Export</button>
+                    </div>
+                </div>
+
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Business Networks</h3>
+                            <button class="btn-more"><i class="fas fa-ellipsis-v"></i></button>
+                        </div>
+                        <div class="card-body">
+                            <div class="network-item">
+                                <div class="network-info">
+                                    <h4>Supply Chain Network</h4>
+                                    <p>Version: 1.2.3</p>
+                                </div>
+                                <div class="network-actions">
+                                    <button class="btn-action"><i class="fas fa-play"></i></button>
+                                    <button class="btn-action"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-action"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <div class="network-item">
+                                <div class="network-info">
+                                    <h4>Insurance Claims Network</h4>
+                                    <p>Version: 2.0.1</p>
+                                </div>
+                                <div class="network-actions">
+                                    <button class="btn-action"><i class="fas fa-play"></i></button>
+                                    <button class="btn-action"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-action"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <div class="network-item">
+                                <div class="network-info">
+                                    <h4>Asset Trading Network</h4>
+                                    <p>Version: 0.9.5</p>
+                                </div>
+                                <div class="network-actions">
+                                    <button class="btn-action"><i class="fas fa-play"></i></button>
+                                    <button class="btn-action"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-action"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn-view-all">View All Networks</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Activities</h3>
+                            <button class="btn-more"><i class="fas fa-ellipsis-v"></i></button>
+                        </div>
+                        <div class="card-body activity-feed">
+                            <div class="activity-item">
+                                <div class="activity-icon"><i class="fas fa-plus-circle"></i></div>
+                                <div class="activity-details">
+                                    <p><strong>New Asset Created</strong></p>
+                                    <p>Product#1234 added to Supply Chain Network</p>
+                                    <span class="activity-time">10 minutes ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon"><i class="fas fa-exchange-alt"></i></div>
+                                <div class="activity-details">
+                                    <p><strong>Transaction Executed</strong></p>
+                                    <p>Transfer of ownership in Asset Trading Network</p>
+                                    <span class="activity-time">1 hour ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon"><i class="fas fa-edit"></i></div>
+                                <div class="activity-details">
+                                    <p><strong>Model Updated</strong></p>
+                                    <p>Insurance Claims Network model file modified</p>
+                                    <span class="activity-time">Yesterday</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn-view-all">View All Activities</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>Model Editor</h3>
+                        <div class="btn-group">
+                            <button class="btn btn-secondary"><i class="fas fa-save"></i> Save</button>
+                            <button class="btn btn-secondary"><i class="fas fa-undo"></i> Undo</button>
+                            <button class="btn btn-secondary"><i class="fas fa-redo"></i> Redo</button>
+                        </div>
+                    </div>
+                    <div class="editor-container">
+                        <div class="editor-sidebar">
+                            <div class="editor-tab active">Model</div>
+                            <div class="editor-tab">Script</div>
+                            <div class="editor-tab">Access Control</div>
+                            <div class="editor-tab">Query</div>
+                        </div>
+                        <div class="editor-main">
+                            <div class="editor-header">
+                                <div class="file-tabs">
+                                    <div class="file-tab active">org.example.model.cto <span class="close-tab">×</span>
+                                    </div>
+                                    <div class="file-tab">org.example.logic.js <span class="close-tab">×</span></div>
+                                    <div class="file-tab-add"><i class="fas fa-plus"></i></div>
+                                </div>
+                            </div>
+                            <div class="code-editor">
+                                <pre><code>/**
+ * Sample business network definition
+ */
+namespace org.example
+
+asset Product identified by productId {
+    o String productId
+    o String name
+    o String description
+    o Double price
+    --> Owner owner
+}
+
+participant Owner identified by ownerId {
+    o String ownerId
+    o String name
+    o String email
+}
+
+transaction TransferProduct {
+    --> Product product
+    --> Owner newOwner
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>Network Control</h3>
+                    </div>
+                    <div class="cards-container">
+                        <div class="card control-card">
+                            <div class="control-icon"><i class="fas fa-play-circle"></i></div>
+                            <h4>Deploy</h4>
+                            <p>Deploy your business network to the blockchain</p>
+                            <button class="btn btn-outline">Deploy Network</button>
+                        </div>
+                        <div class="card control-card">
+                            <div class="control-icon"><i class="fas fa-cube"></i></div>
+                            <h4>Test</h4>
+                            <p>Test your business network with sample transactions</p>
+                            <button class="btn btn-outline">Run Test</button>
+                        </div>
+                        <div class="card control-card">
+                            <div class="control-icon"><i class="fas fa-users"></i></div>
+                            <h4>Manage</h4>
+                            <p>Manage participants and permissions</p>
+                            <button class="btn btn-outline">Manage Network</button>
+                        </div>
+                        <div class="card control-card">
+                            <div class="control-icon"><i class="fas fa-chart-line"></i></div>
+                            <h4>Monitor</h4>
+                            <p>Monitor network performance and transactions</p>
+                            <button class="btn btn-outline">View Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="main-footer">
+                <div class="footer-info">
+                    <p>Blockchain Composer v1.2.0</p>
+                    <p>© 2025 Blockchain Composer</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Documentation</a>
+                    <a href="#">API</a>
+                    <a href="#">Support</a>
+                </div>
+            </footer>
+        </main>
+
+        <aside class="right-panel">
+            <div class="panel-header">
+                <h3>Details</h3>
+                <button class="close-panel"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="panel-content">
+                <div class="details-section">
+                    <h4>Network Properties</h4>
+                    <div class="property-item">
+                        <span class="property-label">Name:</span>
+                        <span class="property-value">Supply Chain Network</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Version:</span>
+                        <span class="property-value">1.2.3</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Created:</span>
+                        <span class="property-value">2025-05-01</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Last Modified:</span>
+                        <span class="property-value">2025-05-09</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Description:</span>
+                        <span class="property-value">A business network for managing supply chain transactions and asset
+                            tracking.</span>
+                    </div>
+                </div>
+                <div class="details-section">
+                    <h4>Network Statistics</h4>
+                    <div class="property-item">
+                        <span class="property-label">Assets:</span>
+                        <span class="property-value">128</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Participants:</span>
+                        <span class="property-value">45</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Transactions:</span>
+                        <span class="property-value">1,254</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Queries:</span>
+                        <span class="property-value">18</span>
+                    </div>
+                </div>
+                <div class="details-section">
+                    <h4>Access Control</h4>
+                    <div class="access-roles">
+                        <div class="role-item">
+                            <div class="role-name">Network Admin</div>
+                            <div class="role-members">3 members</div>
+                        </div>
+                        <div class="role-item">
+                            <div class="role-name">Participant</div>
+                            <div class="role-members">32 members</div>
+                        </div>
+                        <div class="role-item">
+                            <div class="role-name">Reader</div>
+                            <div class="role-members">10 members</div>
+                        </div>
+                    </div>
+                    <button class="btn-outline btn-sm">Manage Roles</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <div class="modal" id="createNetworkModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Business Network</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="networkName">Network Name</label>
+                    <input type="text" id="networkName" placeholder="Enter network name">
+                </div>
+                <div class="form-group">
+                    <label for="networkDescription">Description</label>
+                    <textarea id="networkDescription" placeholder="Describe your business network"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="networkVersion">Version</label>
+                    <input type="text" id="networkVersion" placeholder="0.0.1">
+                </div>
+                <div class="form-group">
+                    <label for="networkTemplate">Template</label>
+                    <select id="networkTemplate">
+                        <option value="empty">Empty Network</option>
+                        <option value="supplyChain">Supply Chain</option>
+                        <option value="insurance">Insurance Claims</option>
+                        <option value="assetTrading">Asset Trading</option>
+                    </select>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" id="initializeWithSample">
+                    <label for="initializeWithSample">Initialize with sample data</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close">Cancel</button>
+                <button class="btn btn-primary">Create Network</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js">
+
+    </script>
+</body>
+
+</html>
