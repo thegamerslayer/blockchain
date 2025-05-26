@@ -1012,3 +1012,115 @@ body {
         width: 100%;
     }
 }
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff0f6;
+}
+body,html{
+    height:100%;
+    margin:0;
+}
+.login-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-card h2 {
+    margin-bottom: 25px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.login-card .form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.login-card label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.login-card input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.login-card input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(63, 81, 181, 0.3);
+    outline: none;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.login-footer-text {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.login-footer-text a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.login-footer-text a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive for small screens */
+@media (max-width: 480px) {
+    .login-card {
+        padding: 30px 20px;
+    }
+}
+.user-profile {
+    position: relative;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 10;
+    min-width: 150px;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
