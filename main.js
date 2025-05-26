@@ -1,6 +1,32 @@
 // script.js
-document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
+document.addEventListener("DOMContentLoaded", function () {
+    // User profile dropdown
+    const userProfile = document.getElementById("userProfile");
+    const userDropdown = document.getElementById("userDropdown");
+    const switchAccount = document.getElementById("switchAccount");
+
+    if (userProfile && userDropdown) {
+        userProfile.addEventListener("click", (e) => {
+            e.stopPropagation();
+            userDropdown.style.display = userDropdown.style.display === "block" ? "none" : "block";
+        });
+
+        window.addEventListener("click", () => userDropdown.style.display = "none");
+    }
+
+    if (switchAccount) {
+        switchAccount.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.location.href = "login.html";
+        });
+    }
+
+    // Set email from storage
+    const storedUser = localStorage.getItem("loggedInUser");
+    if (storedUser && document.getElementById("username-display")) {
+        document.getElementById("username-display").textContent = storedUser;
+    }
+
     const rightPanel = document.querySelector('.right-panel');
     const closePanelBtn = document.querySelector('.close-panel');
     const createNetworkBtn = document.querySelector('.btn-primary');
@@ -11,549 +37,209 @@ document.addEventListener('DOMContentLoaded', function() {
     const editorTabs = document.querySelectorAll('.editor-tab');
     const fileTabs = document.querySelectorAll('.file-tab');
     const fileTabAdd = document.querySelector('.file-tab-add');
-    const userProfile = document.querySelector('.user-profile');
     const sidebarMenuItems = document.querySelectorAll('.sidebar-menu li');
     const btnHelp = document.querySelector('.btn-help');
     const btnNotifications = document.querySelector('.btn-notifications');
     const searchInput = document.querySelector('.search-container input');
 
-    // Toggle right panel
-    closePanelBtn.addEventListener('click', function() {
-        rightPanel.classList.toggle('hidden');
-    });
+    if (rightPanel && closePanelBtn) {
+        closePanelBtn.addEventListener('click', () => rightPanel.classList.toggle('hidden'));
+    }
 
-    // Show create network modal
-    createNetworkBtn.addEventListener('click', function() {
-        modal.classList.add('active');
-    });
+    if (createNetworkBtn && modal) {
+        createNetworkBtn.addEventListener('click', () => modal.classList.add('active'));
+    }
 
-    // Close modal
-    modalCloseBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            modal.classList.remove('active');
+    if (modal) {
+        modalCloseBtns.forEach(btn => btn.addEventListener('click', () => modal.classList.remove('active')));
+        modal.addEventListener('click', (e) => e.target === modal && modal.classList.remove('active'));
+    }
+
+    if (networkItems) {
+        networkItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn-action')) return;
+                const networkName = this.querySelector('h4').textContent;
+                const networkVersion = this.querySelector('p').textContent.split(': ')[1];
+                
+                document.querySelector('.property-value:nth-of-type(1)').textContent = networkName;
+                document.querySelector('.property-value:nth-of-type(2)').textContent = networkVersion;
+                rightPanel?.classList.remove('hidden');
+            });
         });
-    });
+    }
 
-    // Close modal when clicking outside
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-        }
-    });
+    activityItems?.forEach(item => item.addEventListener('click', () => 
+        console.log('Activity selected:', item.querySelector('p').textContent)));
 
-    // Network item click handler
-    networkItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            if (e.target.classList.contains('btn-action')) return;
-            
-            // Update right panel with network details
-            const networkName = this.querySelector('h4').textContent;
-            const networkVersion = this.querySelector('p').textContent.split(': ')[1];
-            
-            document.querySelector('.property-value:nth-of-type(1)').textContent = networkName;
-            document.querySelector('.property-value:nth-of-type(2)').textContent = networkVersion;
-            
-            // Show right panel if hidden
-            rightPanel.classList.remove('hidden');
-        });
-    });
+    editorTabs?.forEach(tab => tab.addEventListener('click', function() {
+        editorTabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        console.log('Switched to tab:', this.textContent);
+    }));
 
-    // Activity item click handler
-    activityItems.forEach(item => {
-        item.addEventListener('click', function() {
-            // In a real app, this would show more details about the activity
-            console.log('Activity selected:', this.querySelector('p').textContent);
-        });
-    });
-
-    // Editor tab switching
-    editorTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            editorTabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            
-            // In a real app, this would switch the editor content
-            console.log('Switched to tab:', this.textContent);
-        });
-    });
-
-    // File tab switching
-    fileTabs.forEach(tab => {
+    fileTabs?.forEach(tab => {
         tab.addEventListener('click', function(e) {
             if (e.target.classList.contains('close-tab')) return;
-            
             fileTabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
-            
-            // In a real app, this would switch the editor content
             console.log('Switched to file:', this.textContent.trim());
         });
-    });
 
-    // Close file tab
-    fileTabs.forEach(tab => {
         const closeBtn = tab.querySelector('.close-tab');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                tab.remove();
-                
-                // If this was the active tab, activate the first remaining tab
-                if (tab.classList.contains('active')){
-                    const remainingTabs = document.querySelectorAll('.file-tab');
-                    if (remainingTabs.length > 0) {
-                        remainingTabs[0].classList.add('active');
-                    }
-                }
-            });
-        }
+        closeBtn?.addEventListener('click', function(e) {
+            e.stopPropagation();
+            tab.remove();
+            if (tab.classList.contains('active')) {
+                const remainingTabs = document.querySelectorAll('.file-tab');
+                remainingTabs[0]?.classList.add('active');
+            }
+        });                         
     });
 
-    // Add new file tab
-    fileTabAdd.addEventListener('click', function() {
+    fileTabAdd?.addEventListener('click', function() {
         const newTab = document.createElement('div');
         newTab.className = 'file-tab';
         newTab.innerHTML = `New File <span class="close-tab">×</span>`;
-        
         fileTabAdd.parentNode.insertBefore(newTab, fileTabAdd);
         
-        // Add event listeners to the new tab
         newTab.addEventListener('click', function(e) {
             if (e.target.classList.contains('close-tab')) return;
-            
             fileTabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
         });
         
-        const closeBtn = newTab.querySelector('.close-tab');
-        closeBtn.addEventListener('click', function(e) {
+        newTab.querySelector('.close-tab').addEventListener('click', (e) => {
             e.stopPropagation();
             newTab.remove();
         });
     });
 
-    // User profile dropdown (simplified)
-    userProfile.addEventListener('click', function() {
-        // In a real app, this would show a dropdown menu
-        console.log('User profile clicked');
-    });
+    sidebarMenuItems?.forEach(item => item.addEventListener('click', function() {
+        sidebarMenuItems.forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+        console.log('Navigated to:', this.querySelector('a').textContent.trim());
+    }));
 
-    // Sidebar menu navigation
-    sidebarMenuItems.forEach(item => {
-        item.addEventListener('click', function() {
-            sidebarMenuItems.forEach(i => i.classList.remove('active'));
-            this.classList.add('active');
-            
-            // In a real app, this would load the appropriate content
-            console.log('Navigated to:', this.querySelector('a').textContent.trim());
-        });
-    });
+    btnHelp?.addEventListener('click', () => alert('Help documentation would open here.'));
+    btnNotifications?.addEventListener('click', () => console.log('Notifications button clicked'));
 
-    // Help button
-    btnHelp.addEventListener('click', function() {
-        // In a real app, this would open help documentation
-        console.log('Help button clicked');
-        alert('Help documentation would open here.');
-    });
+    searchInput?.addEventListener('keyup', (e) => e.key === 'Enter' && console.log('Searching for:', e.target.value));
 
-    // Notifications button
-    btnNotifications.addEventListener('click', function() {
-        // In a real app, this would show notifications
-        console.log('Notifications button clicked');
-    });
-
-    // Search functionality
-    searchInput.addEventListener('keyup', function(e) {
-        if (e.key === 'Enter') {
-            // In a real app, this would perform a search
-            console.log('Searching for:', this.value);
-        }
-    });
-
-    // Form submission for creating a new network
     const createNetworkForm = document.querySelector('.modal-footer .btn-primary');
-    createNetworkForm.addEventListener('click', function(e) {
+    createNetworkForm?.addEventListener('click', function(e) {
         e.preventDefault();
-        
         const networkName = document.getElementById('networkName').value;
-        const networkDescription = document.getElementById('networkDescription').value;
         const networkVersion = document.getElementById('networkVersion').value;
-        const networkTemplate = document.getElementById('networkTemplate').value;
-        const initializeWithSample = document.getElementById('initializeWithSample').checked;
         
         if (!networkName || !networkVersion) {
             alert('Please fill in all required fields.');
             return;
         }
         
-        // In a real app, this would create the network
         console.log('Creating network:', {
             name: networkName,
-            description: networkDescription,
+            description: document.getElementById('networkDescription').value,
             version: networkVersion,
-            template: networkTemplate,
-            initializeWithSample: initializeWithSample
+            template: document.getElementById('networkTemplate').value,
+            initializeWithSample: document.getElementById('initializeWithSample').checked
         });
         
-        // Close the modal
-        modal.classList.remove('active');
-        
-        // Show success message
+        modal?.classList.remove('active');
         alert(`Network "${networkName}" created successfully!`);
     });
 
-    // Simulate network actions
-    const networkActions = document.querySelectorAll('.network-actions .btn-action');
-    networkActions.forEach(action => {
+    document.querySelectorAll('.network-actions .btn-action').forEach(action => {
         action.addEventListener('click', function() {
             const icon = this.querySelector('i');
             const networkName = this.closest('.network-item').querySelector('h4').textContent;
             
             if (icon.classList.contains('fa-play')) {
-                console.log(`Starting network: ${networkName}`);
                 alert(`Starting network: ${networkName}`);
             } else if (icon.classList.contains('fa-edit')) {
                 console.log(`Editing network: ${networkName}`);
-            } else if (icon.classList.contains('fa-trash')) {
-                if (confirm(`Are you sure you want to delete ${networkName}?`)) {
-                    console.log(`Deleting network: ${networkName}`);
-                    this.closest('.network-item').remove();
-                }
+            } else if (icon.classList.contains('fa-trash') && confirm(`Delete ${networkName}?`)) {
+                this.closest('.network-item').remove();
             }
         });
     });
 
-    // Control card buttons
-    const controlCardButtons = document.querySelectorAll('.control-card .btn');
-    controlCardButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const action = this.textContent.trim();
-            console.log(`Control action: ${action}`);
-            alert(`${action} action would be performed here.`);
-        });
-    });
-});
+    document.querySelectorAll('.control-card .btn').forEach(button => 
+        button.addEventListener('click', () => 
+            alert(`${button.textContent.trim()} action would be performed here.`)));
 
-// Add this to your existing script.js file, focusing just on sidebar functionality
-
-document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
-    const sidebarMenuItems = document.querySelectorAll('.sidebar-menu li');
     const mainContent = document.querySelector('.main-content');
-    const dashboardContainer = document.querySelector('.dashboard-container');
+    if (mainContent) {
+        const views = {
+            'Dashboard': showDashboardView,
+            'Business Networks': showBusinessNetworksView,
+            'Model Files': showModelFilesView,
+            'Script Files': showScriptFilesView,
+            'Access Control': showAccessControlView,
+            'Query Files': showQueryFilesView,
+            'Transaction History': showTransactionHistoryView,
+            'Settings': showSettingsView
+        };
 
-    // Hyperledger Composer sidebar functionality
-    function setupSidebarMenu() {
-        sidebarMenuItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Remove active class from all items
-                sidebarMenuItems.forEach(i => i.classList.remove('active'));
-                
-                // Add active class to clicked item
-                this.classList.add('active');
-                
-                // Get the menu item text
-                const menuText = this.querySelector('a').textContent.trim();
-                
-                // Handle each menu item
-                switch(menuText) {
-                    case 'Dashboard':
-                        showDashboardView();
-                        break;
-                    case 'Business Networks':
-                        showBusinessNetworksView();
-                        break;
-                    case 'Model Files':
-                        showModelFilesView();
-                        break;
-                    case 'Script Files':
-                        showScriptFilesView();
-                        break;
-                    case 'Access Control':
-                        showAccessControlView();
-                        break;
-                    case 'Query Files':
-                        showQueryFilesView();
-                        break;
-                    case 'Transaction History':
-                        showTransactionHistoryView();
-                        break;
-                    case 'Settings':
-                        showSettingsView();
-                        break;
-                }
-            });
-        });
+        sidebarMenuItems?.forEach(item => item.addEventListener('click', function(e) {
+            e.preventDefault();
+            sidebarMenuItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            const view = views[this.querySelector('a').textContent.trim()];
+            view?.();
+        }));
     }
 
-    // View functions for each menu item
     function showDashboardView() {
-        mainContent.innerHTML = `
-            <header class="top-header">
-                <!-- Header content from your original HTML -->
-            </header>
-            <div class="dashboard-container">
-                <!-- Dashboard content from your original HTML -->
-            </div>
-            <footer class="main-footer">
-                <!-- Footer content from your original HTML -->
-            </footer>
-        `;
-        // Reinitialize dashboard functionality
-        initDashboard();
+        mainContent.innerHTML = `<header class="top-header"></header>
+            <div class="dashboard-container"></div>
+            <footer class="main-footer"></footer>`;
     }
 
     function showBusinessNetworksView() {
-        mainContent.innerHTML = `
-            <header class="top-header">
-                <div class="breadcrumb">
-                    <a href="#">Home</a> / <a href="#">Business Networks</a>
-                </div>
-                <!-- Rest of header -->
-            </header>
-            <div class="business-networks-container">
-                <div class="section-header">
-                    <h2>Business Networks</h2>
-                    <div class="btn-group">
-                        <button class="btn btn-primary" id="createNetworkBtn"><i class="fas fa-plus"></i> Create Network</button>
-                        <button class="btn btn-secondary"><i class="fas fa-upload"></i> Import</button>
-                    </div>
-                </div>
-                <div class="networks-list">
-                    <!-- Networks will be loaded here -->
-                </div>
-            </div>
-            <footer class="main-footer">
-                <!-- Footer content -->
-            </footer>
-        `;
-        
-        // Load networks
-        loadBusinessNetworks();
-        
-        // Add event listeners
-        document.getElementById('createNetworkBtn').addEventListener('click', showCreateNetworkModal);
+        mainContent.innerHTML = `<header class="top-header"></header>
+            <div class="business-networks-container"></div>
+            <footer class="main-footer"></footer>`;
     }
 
-    function showModelFilesView() {
-        mainContent.innerHTML = `
-            <header class="top-header">
-                <div class="breadcrumb">
-                    <a href="#">Home</a> / <a href="#">Model Files</a>
-                </div>
-                <!-- Rest of header -->
-            </header>
-            <div class="model-files-container">
-                <div class="section-header">
-                    <h2>Model Files</h2>
-                    <div class="btn-group">
-                        <button class="btn btn-primary"><i class="fas fa-plus"></i> New Model</button>
-                    </div>
-                </div>
-                <div class="editor-container">
-                    <!-- Model editor content -->
-                </div>
-            </div>
-            <footer class="main-footer">
-                <!-- Footer content -->
-            </footer>
-        `;
-        
-        // Initialize model editor
-        initModelEditor();
-    }
+    function showModelFilesView() { mainContent.innerHTML = ''; }
+    function showScriptFilesView() { mainContent.innerHTML = ''; }
+    function showAccessControlView() { mainContent.innerHTML = ''; }
+    function showQueryFilesView() { mainContent.innerHTML = ''; }
+    function showTransactionHistoryView() { mainContent.innerHTML = ''; }
+    function showSettingsView() { mainContent.innerHTML = ''; }
+});
 
-    function showScriptFilesView() {
-        mainContent.innerHTML = `
-            <header class="top-header">
-                <div class="breadcrumb">
-                    <a href="#">Home</a> / <a href="#">Script Files</a>
-                </div>
-                <!-- Rest of header -->
-            </header>
-            <div class="script-files-container">
-                <div class="section-header">
-                    <h2>Transaction Processor Functions</h2>
-                    <div class="btn-group">
-                        <button class="btn btn-primary"><i class="fas fa-plus"></i> New Script</button>
-                    </div>
-                </div>
-                <div class="editor-container">
-                    <!-- Script editor content -->
-                </div>
-            </div>
-            <footer class="main-footer">
-                <!-- Footer content -->
-            </footer>
-        `;
-        
-        // Initialize script editor
-        initScriptEditor();
-    }
+// Login and Signup form handling
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("form");
 
-    function showAccessControlView() {
-        mainContent.innerHTML = `
-            <header class="top-header">
-                <div class="breadcrumb">
-                    <a href="#">Home</a> / <a href="#">Access Control</a>
-                </div>
-                <!-- Rest of header -->
-            </header>
-            <div class="access-control-container">
-                <div class="section-header">
-                    <h2>Access Control Rules</h2>
-                    <div class="btn-group">
-                        <button class="btn btn-primary"><i class="fas fa-plus"></i> New Rule</button>
-                    </div>
-                </div>
-                <div class="editor-container">
-                    <!-- ACL editor content -->
-                </div>
-            </div>
-            <footer class="main-footer">
-                <!-- Footer content -->
-            </footer>
-        `;
-        
-        // Initialize ACL editor
-        initACLEditor();
-    }
+    if (!form) return;
 
-    function showQueryFilesView() {
-        mainContent.innerHTML = `
-            <header class="top-header">
-                <div class="breadcrumb">
-                    <a href="#">Home</a> / <a href="#">Query Files</a>
-                </div>
-                <!-- Rest of header -->
-            </header>
-            <div class="query-files-container">
-                <div class="section-header">
-                    <h2>Queries</h2>
-                    <div class="btn-group">
-                        <button class="btn btn-primary"><i class="fas fa-plus"></i> New Query</button>
-                    </div>
-                </div>
-                <div class="editor-container">
-                    <!-- Query editor content -->
-                </div>
-            </div>
-            <footer class="main-footer">
-                <!-- Footer content -->
-            </footer>
-        `;
-        
-        // Initialize query editor
-        initQueryEditor();
-    }
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    function showTransactionHistoryView() {
-        mainContent.innerHTML = `
-            <header class="top-header">
-                <div class="breadcrumb">
-                    <a href="#">Home</a> / <a href="#">Transaction History</a>
-                </div>
-                <!-- Rest of header -->
-            </header>
-            <div class="transaction-history-container">
-                <div class="section-header">
-                    <h2>Transaction History</h2>
-                    <div class="btn-group">
-                        <button class="btn btn-secondary"><i class="fas fa-filter"></i> Filter</button>
-                        <button class="btn btn-secondary"><i class="fas fa-download"></i> Export</button>
-                    </div>
-                </div>
-                <div class="transactions-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Transaction ID</th>
-                                <th>Type</th>
-                                <th>Participant</th>
-                                <th>Timestamp</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Transactions will be loaded here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <footer class="main-footer">
-                <!-- Footer content -->
-            </footer>
-        `;
-        
-        // Load transaction history
-        loadTransactionHistory();
-    }
+        const isLogin = window.location.pathname.includes("login.html");
+        const email = document.querySelector('input[name="email"]').value;
+        const password = document.querySelector('input[name="password"]').value;
+        const endpoint = isLogin ? "/login" : "/signup";
 
-    function showSettingsView() {
-        mainContent.innerHTML = `
-            <header class="top-header">
-                <div class="breadcrumb">
-                    <a href="#">Home</a> / <a href="#">Settings</a>
-                </div>
-                <!-- Rest of header -->
-            </header>
-            <div class="settings-container">
-                <div class="section-header">
-                    <h2>Settings</h2>
-                </div>
-                <div class="settings-tabs">
-                    <div class="settings-tab active" data-tab="general">General</div>
-                    <div class="settings-tab" data-tab="connection">Connection</div>
-                    <div class="settings-tab" data-tab="security">Security</div>
-                </div>
-                <div class="settings-content">
-                    <!-- Settings content will be loaded here -->
-                </div>
-            </div>
-            <footer class="main-footer">
-                <!-- Footer content -->
-            </footer>
-        `;
-        
-        // Initialize settings
-        initSettings();
-    }
+        try {
+            const response = await fetch(`http://localhost:3000${endpoint}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
 
-    // Initialize the sidebar
-    setupSidebarMenu();
+            if (!response.ok) throw new Error(await response.text());
 
-    // Helper functions for each view (would be implemented based on your needs)
-    function loadBusinessNetworks() {
-        // Implementation to load business networks
-    }
+            const result = await response.json();
+            localStorage.setItem("loggedInUser", result.email);
 
-    function initModelEditor() {
-        // Implementation for model editor
-    }
-
-    function initScriptEditor() {
-        // Implementation for script editor
-    }
-
-    function initACLEditor() {
-        // Implementation for ACL editor
-    }
-
-    function initQueryEditor() {
-        // Implementation for query editor
-    }
-
-    function loadTransactionHistory() {
-        // Implementation to load transaction history
-    }
-
-    function initSettings() {
-        // Implementation for settings
-    }
-
-    function showCreateNetworkModal() {
-        // Implementation to show create network modal
-    }
+            alert(`${isLogin ? "Login" : "Signup"} successful! Welcome, ${result.email}`);
+            window.location.href = "index.html";
+        } catch (error) {
+            alert(`${isLogin ? "Login" : "Signup"} failed:` + error.message);
+        }
+    });
 });
