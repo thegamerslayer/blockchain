@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.login-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  text-align: center;
+}
+.login-card h2 {
+  margin-bottom: 20px;
+  color: #2c3e91;
+  font-size: 24px;
+}
+.login-card label {
+  display: block;
+  text-align: left;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+.login-card input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.login-card button {
+  width: 100%;
+  padding: 10px;
+  background-color: #2c3e91;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.login-card .signup-link {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+}
+.login-card .signup-link a {
+  color: #2c3e91;
+  text-decoration: none;
+}
