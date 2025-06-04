@@ -1,0 +1,47 @@
+<!-- public/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/blockchain/mainStructure/style.css   .css" />
+</head>
+<body>
+  <div class="dashboard-container">
+    <h2>Your Networks</h2>
+    <button onclick="loadNetworks()">Load Networks</button>
+    <ul id="networkList"></ul>
+    <br>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "index.html";
+    }
+
+    async function loadNetworks() {
+      const res = await fetch("http://localhost:3000/networks", {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      const data = await res.json();
+      const list = document.getElementById("networkList");
+      list.innerHTML = "";
+      data.forEach(net => {
+        const li = document.createElement("li");
+        li.textContent = `${net.name} (v${net.version})`;
+        list.appendChild(li);
+      });
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

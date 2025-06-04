@@ -1,5 +1,5 @@
 // script.js
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // DOM Elements
     const rightPanel = document.querySelector('.right-panel');
     const closePanelBtn = document.querySelector('.close-panel');
@@ -18,24 +18,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.querySelector('.search-container input');
 
     // Toggle right panel
-    closePanelBtn.addEventListener('click', function() {
+    closePanelBtn.addEventListener('click', function () {
         rightPanel.classList.toggle('hidden');
     });
 
     // Show create network modal
-    createNetworkBtn.addEventListener('click', function() {
+    createNetworkBtn.addEventListener('click', function () {
         modal.classList.add('active');
     });
 
     // Close modal
     modalCloseBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             modal.classList.remove('active');
         });
     });
 
     // Close modal when clicking outside
-    modal.addEventListener('click', function(e) {
+    modal.addEventListener('click', function (e) {
         if (e.target === modal) {
             modal.classList.remove('active');
         }
@@ -43,16 +43,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Network item click handler
     networkItems.forEach(item => {
-        item.addEventListener('click', function(e) {
+        item.addEventListener('click', function (e) {
             if (e.target.classList.contains('btn-action')) return;
-            
+
             // Update right panel with network details
             const networkName = this.querySelector('h4').textContent;
             const networkVersion = this.querySelector('p').textContent.split(': ')[1];
-            
+
             document.querySelector('.property-value:nth-of-type(1)').textContent = networkName;
             document.querySelector('.property-value:nth-of-type(2)').textContent = networkVersion;
-            
+
             // Show right panel if hidden
             rightPanel.classList.remove('hidden');
         });
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Activity item click handler
     activityItems.forEach(item => {
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function () {
             // In a real app, this would show more details about the activity
             console.log('Activity selected:', this.querySelector('p').textContent);
         });
@@ -68,10 +68,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Editor tab switching
     editorTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function () {
             editorTabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
-            
+
             // In a real app, this would switch the editor content
             console.log('Switched to tab:', this.textContent);
         });
@@ -79,12 +79,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // File tab switching
     fileTabs.forEach(tab => {
-        tab.addEventListener('click', function(e) {
+        tab.addEventListener('click', function (e) {
             if (e.target.classList.contains('close-tab')) return;
-            
+
             fileTabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
-            
+
             // In a real app, this would switch the editor content
             console.log('Switched to file:', this.textContent.trim());
         });
@@ -94,12 +94,12 @@ document.addEventListener('DOMContentLoaded', function() {
     fileTabs.forEach(tab => {
         const closeBtn = tab.querySelector('.close-tab');
         if (closeBtn) {
-            closeBtn.addEventListener('click', function(e) {
+            closeBtn.addEventListener('click', function (e) {
                 e.stopPropagation();
                 tab.remove();
-                
+
                 // If this was the active tab, activate the first remaining tab
-                if (tab.classList.contains('active')){
+                if (tab.classList.contains('active')) {
                     const remainingTabs = document.querySelectorAll('.file-tab');
                     if (remainingTabs.length > 0) {
                         remainingTabs[0].classList.add('active');
@@ -110,60 +110,60 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add new file tab
-    fileTabAdd.addEventListener('click', function() {
+    fileTabAdd.addEventListener('click', function () {
         const newTab = document.createElement('div');
         newTab.className = 'file-tab';
         newTab.innerHTML = `New File <span class="close-tab">×</span>`;
-        
+
         fileTabAdd.parentNode.insertBefore(newTab, fileTabAdd);
-        
+
         // Add event listeners to the new tab
-        newTab.addEventListener('click', function(e) {
+        newTab.addEventListener('click', function (e) {
             if (e.target.classList.contains('close-tab')) return;
-            
+
             fileTabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
         });
-        
+
         const closeBtn = newTab.querySelector('.close-tab');
-        closeBtn.addEventListener('click', function(e) {
+        closeBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             newTab.remove();
         });
     });
 
     // User profile dropdown (simplified)
-    userProfile.addEventListener('click', function() {
+    userProfile.addEventListener('click', function () {
         // In a real app, this would show a dropdown menu
         console.log('User profile clicked');
     });
 
     // Sidebar menu navigation
     sidebarMenuItems.forEach(item => {
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function () {
             sidebarMenuItems.forEach(i => i.classList.remove('active'));
             this.classList.add('active');
-            
+
             // In a real app, this would load the appropriate content
             console.log('Navigated to:', this.querySelector('a').textContent.trim());
         });
     });
 
     // Help button
-    btnHelp.addEventListener('click', function() {
+    btnHelp.addEventListener('click', function () {
         // In a real app, this would open help documentation
         console.log('Help button clicked');
         alert('Help documentation would open here.');
     });
 
     // Notifications button
-    btnNotifications.addEventListener('click', function() {
+    btnNotifications.addEventListener('click', function () {
         // In a real app, this would show notifications
         console.log('Notifications button clicked');
     });
 
     // Search functionality
-    searchInput.addEventListener('keyup', function(e) {
+    searchInput.addEventListener('keyup', function (e) {
         if (e.key === 'Enter') {
             // In a real app, this would perform a search
             console.log('Searching for:', this.value);
@@ -172,20 +172,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Form submission for creating a new network
     const createNetworkForm = document.querySelector('.modal-footer .btn-primary');
-    createNetworkForm.addEventListener('click', function(e) {
+    createNetworkForm.addEventListener('click', function (e) {
         e.preventDefault();
-        
+
         const networkName = document.getElementById('networkName').value;
         const networkDescription = document.getElementById('networkDescription').value;
         const networkVersion = document.getElementById('networkVersion').value;
         const networkTemplate = document.getElementById('networkTemplate').value;
         const initializeWithSample = document.getElementById('initializeWithSample').checked;
-        
+
         if (!networkName || !networkVersion) {
             alert('Please fill in all required fields.');
             return;
         }
-        
+
         // In a real app, this would create the network
         console.log('Creating network:', {
             name: networkName,
@@ -194,10 +194,10 @@ document.addEventListener('DOMContentLoaded', function() {
             template: networkTemplate,
             initializeWithSample: initializeWithSample
         });
-        
+
         // Close the modal
         modal.classList.remove('active');
-        
+
         // Show success message
         alert(`Network "${networkName}" created successfully!`);
     });
@@ -205,10 +205,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Simulate network actions
     const networkActions = document.querySelectorAll('.network-actions .btn-action');
     networkActions.forEach(action => {
-        action.addEventListener('click', function() {
+        action.addEventListener('click', function () {
             const icon = this.querySelector('i');
             const networkName = this.closest('.network-item').querySelector('h4').textContent;
-            
+
             if (icon.classList.contains('fa-play')) {
                 console.log(`Starting network: ${networkName}`);
                 alert(`Starting network: ${networkName}`);
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Control card buttons
     const controlCardButtons = document.querySelectorAll('.control-card .btn');
     controlCardButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const action = this.textContent.trim();
             console.log(`Control action: ${action}`);
             alert(`${action} action would be performed here.`);
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Add this to your existing script.js file, focusing just on sidebar functionality
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // DOM Elements
     const sidebarMenuItems = document.querySelectorAll('.sidebar-menu li');
     const mainContent = document.querySelector('.main-content');
@@ -245,20 +245,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hyperledger Composer sidebar functionality
     function setupSidebarMenu() {
         sidebarMenuItems.forEach(item => {
-            item.addEventListener('click', function(e) {
+            item.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 // Remove active class from all items
                 sidebarMenuItems.forEach(i => i.classList.remove('active'));
-                
+
                 // Add active class to clicked item
                 this.classList.add('active');
-                
+
                 // Get the menu item text
                 const menuText = this.querySelector('a').textContent.trim();
-                
+
                 // Handle each menu item
-                switch(menuText) {
+                switch (menuText) {
                     case 'Dashboard':
                         showDashboardView();
                         break;
@@ -329,10 +329,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- Footer content -->
             </footer>
         `;
-        
+
         // Load networks
         loadBusinessNetworks();
-        
+
         // Add event listeners
         document.getElementById('createNetworkBtn').addEventListener('click', showCreateNetworkModal);
     }
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- Footer content -->
             </footer>
         `;
-        
+
         // Initialize model editor
         initModelEditor();
     }
@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- Footer content -->
             </footer>
         `;
-        
+
         // Initialize script editor
         initScriptEditor();
     }
@@ -416,7 +416,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- Footer content -->
             </footer>
         `;
-        
+
         // Initialize ACL editor
         initACLEditor();
     }
@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- Footer content -->
             </footer>
         `;
-        
+
         // Initialize query editor
         initQueryEditor();
     }
@@ -486,7 +486,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- Footer content -->
             </footer>
         `;
-        
+
         // Load transaction history
         loadTransactionHistory();
     }
@@ -516,7 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- Footer content -->
             </footer>
         `;
-        
+
         // Initialize settings
         initSettings();
     }
@@ -526,6 +526,57 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Helper functions for each view (would be implemented based on your needs)
     function loadBusinessNetworks() {
+        // Add this function to main.js
+        async function loadBusinessNetworks() {
+            try {
+                const response = await fetch('http://localhost:3000/networks', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to load networks');
+
+                const networks = await response.json();
+                renderNetworks(networks);
+            } catch (error) {
+                console.error('Error loading networks:', error);
+                alert('Failed to load networks');
+            }
+        }
+
+        function renderNetworks(networks) {
+            const networksContainer = document.querySelector('.card-body');
+            networksContainer.innerHTML = '';
+
+            networks.forEach(network => {
+                const networkItem = document.createElement('div');
+                networkItem.className = 'network-item';
+                networkItem.innerHTML = `
+            <div class="network-info">
+                <h4>${network.name}</h4>
+                <p>Version: ${network.version}</p>
+            </div>
+            <div class="network-actions">
+                <button class="btn-action"><i class="fas fa-play"></i></button>
+                <button class="btn-action"><i class="fas fa-edit"></i></button>
+                <button class="btn-action"><i class="fas fa-trash"></i></button>
+            </div>
+        `;
+                networksContainer.appendChild(networkItem);
+            });
+        }
+
+        // Call this when dashboard loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadBusinessNetworks();
+
+            // Display username
+            const username = localStorage.getItem('username');
+            if (username && document.getElementById('username-display')) {
+                document.getElementById('username-display').textContent = username;
+            }
+        });
         // Implementation to load business networks
     }
 
@@ -556,4 +607,44 @@ document.addEventListener('DOMContentLoaded', function() {
     function showCreateNetworkModal() {
         // Implementation to show create network modal
     }
+
+
+    // In main.js - ADD THESE FUNCTIONS
+
+// Load networks from server
+async function loadNetworks() {
+    try {
+        const response = await fetch('http://localhost:3000/networks', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        
+        if (!response.ok) throw new Error('Network error');
+        return await response.json();
+    } catch (error) {
+        console.error('Failed to load networks:', error);
+        return [];
+    }
+}
+
+// Display username on page load
+document.addEventListener('DOMContentLoaded', async () => {
+    const username = localStorage.getItem('username');
+    if (username) {
+        document.getElementById('username-display').textContent = username;
+    }
+    
+    // Load and display networks
+    const networks = await loadNetworks();
+    renderNetworks(networks);
+});
+
+// Logout functionality
+document.getElementById('logout')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    window.location.href = 'login.html';
+});
 });
