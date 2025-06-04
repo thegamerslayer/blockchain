@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="signup.css">
 </head>
 <body>
-  <div class="login-container">
+  <!--<div class="login-container">
     <div class="login-card">
       <h2>Create Account</h2>
       <form id="signupForm">
@@ -17,7 +17,7 @@
           <input type="text" id="username" required>
         </div>
         <div class="form-group">
-          <label for="email">Email</label>
+          <l for="email">Email</l abel>
           <input type="email" id="email" required>
         </div>
         <div class="form-group">
@@ -31,6 +31,55 @@
           <input type="password" id="confirmPassword" required>
         </div>
         <button type="submit" class="btn btn-primary">Sign Up</button>
+        <div class="login-footer-text">
+          Already have an account? <a href="/blockchain/login/login.html">Log in</a>
+        </div>
+      </form>
+    </div>
+  </div>
+-->
+  <div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+
+  <div class="particles" id="particles"></div>
+
+  <div class="login-container">
+    <div class="login-card">
+      <h2>Create Account</h2>
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" required>
+          <div class="input-highlight"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
+          <div class="input-highlight"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required 
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="8+ chars with uppercase, lowercase, and number">
+          <div class="input-highlight"></div>
+          <div class="password-strength" id="passwordStrength"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" required>
+          <div class="input-highlight"></div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+        
         <div class="login-footer-text">
           Already have an account? <a href="/blockchain/login/login.html">Log in</a>
         </div>

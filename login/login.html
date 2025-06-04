@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login - Blockchain Composer</title>
-  <link rel="stylesheet" href="styles/login.css">
+  <link rel="stylesheet" href="/blockchain/login/login.css">
 </head>
 <body>
   <div class="login-card">
@@ -23,6 +23,208 @@
     </form>
   </div>
 
+  
   <script src="login.js"></script>
+</body>
+</html>
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Blockchain Composer</title>
+  <link rel="stylesheet" href="/blockchain/login/login.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="background-container">
+    <div class="floating-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="orb orb-4"></div>
+      <div class="orb orb-5"></div>
+    </div>
+    <div class="wave-container">
+      <svg class="wave" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25"></path>
+        <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5"></path>
+        <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"></path>
+      </svg>
+    </div>
+  </div>
+
+  <div class="login-container">
+    <div class="login-card">
+      <div class="card-header">
+        <div class="logo-section">
+          <div class="logo-wrapper">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <h1>Blockchain Composer</h1>
+          <p>Welcome back! Please sign in to your account</p>
+        </div>
+      </div>
+
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="username">Email or Username</label>
+          <div class="input-container">
+            <i class="fas fa-envelope"></i>
+            <input type="text" id="username" placeholder="Enter your email or username" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-container">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <button type="button" class="password-toggle" id="passwordToggle">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" id="remember">
+            <span class="checkmark"></span>
+            Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="login-button">
+          <span class="button-text">Sign In</span>
+          <div class="button-loader">
+            <div class="spinner"></div>
+          </div>
+        </button>
+
+        <div class="divider">
+          <span>or continue with</span>
+        </div>
+
+        <div class="social-buttons">
+          <button type="button" class="social-btn google-btn">
+            <i class="fab fa-google"></i>
+            Google
+          </button>
+          <button type="button" class="social-btn apple-btn">
+            <i class="fab fa-apple"></i>
+            Apple
+          </button>
+          <button type="button" class="social-btn github-btn">
+            <i class="fab fa-github"></i>
+            GitHub
+          </button>
+        </div>
+
+        <div class="signup-prompt">
+          Don't have an account? <a href="/blockchain/signup/signup.html">Create one</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Create floating orbs animation
+    function animateOrbs() {
+      const orbs = document.querySelectorAll('.orb');
+      orbs.forEach((orb, index) => {
+        const delay = index * 0.5;
+        orb.style.animationDelay = `${delay}s`;
+      });
+    }
+
+    // Password toggle functionality
+    document.getElementById('passwordToggle').addEventListener('click', function() {
+      const passwordInput = document.getElementById('password');
+      const icon = this.querySelector('i');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    });
+
+    // Form submission
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const button = this.querySelector('.login-button');
+      const buttonText = button.querySelector('.button-text');
+      const buttonLoader = button.querySelector('.button-loader');
+      
+      // Add loading state
+      button.classList.add('loading');
+      buttonText.style.opacity = '0';
+      buttonLoader.style.opacity = '1';
+      
+      // Simulate login process
+      setTimeout(() => {
+        button.classList.remove('loading');
+        button.classList.add('success');
+        buttonText.textContent = 'Welcome Back!';
+        buttonText.style.opacity = '1';
+        buttonLoader.style.opacity = '0';
+        
+        setTimeout(() => {
+          alert('Login successful! Redirecting to dashboard...');
+        }, 1000);
+      }, 2500);
+    });
+
+    // Social button interactions
+    document.querySelectorAll('.social-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const originalContent = this.innerHTML;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+        this.style.pointerEvents = 'none';
+        
+        setTimeout(() => {
+          this.innerHTML = originalContent;
+          this.style.pointerEvents = 'auto';
+          alert('Social login would be implemented here');
+        }, 2000);
+      });
+    });
+
+    // Input focus effects
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.classList.add('focused');
+      });
+      
+      input.addEventListener('blur', function() {
+        if (this.value === '') {
+          this.parentElement.classList.remove('focused');
+        }
+      });
+      
+      input.addEventListener('input', function() {
+        if (this.value !== '') {
+          this.parentElement.classList.add('has-value');
+        } else {
+          this.parentElement.classList.remove('has-value');
+        }
+      });
+    });
+
+    // Initialize animations
+    window.addEventListener('load', () => {
+      animateOrbs();
+      document.body.classList.add('loaded');
+    });
+  </script>
 </body>
 </html>
