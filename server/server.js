@@ -11,7 +11,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: 'https://localhost:3000',
+    credentials: true
+}));
 app.use(bodyParser.json());
 
 // Database connection
@@ -19,7 +22,7 @@ mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => console.log("MongoDB connected"))
-  .catch(err => console.error("MongoDB connection error:", err));
+    .catch(err => console.error("MongoDB connection error:", err));
 
 // Schemas
 const userSchema = new mongoose.Schema({
@@ -43,7 +46,7 @@ const Network = mongoose.model('Network', networkSchema);
 const authenticate = async (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) return res.status(401).json({ message: 'Authentication required' });
-    
+
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = await User.findById(decoded.userId);
@@ -58,19 +61,31 @@ const authenticate = async (req, res, next) => {
 app.post('/signup', async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        
+
+        const existingUser = await user.findOne({ $or: [{ username }, { email }] });
+        if (existingUser) {
+            return res.status(400).json({
+                message: existingUser.username === username ? "Username already exists" : "Email already exists"
+            });
+        }
+
         if (await User.findOne({ username })) {
             return res.status(400).json({ message: "Username exists" });
         }
-        
+
         if (await User.findOne({ email })) {
             return res.status(400).json({ message: "Email exists" });
+        }
+
+        // Add this before hashing in /signup
+        if (password.length < 6) {
+            return res.status(400).json({ message: "Password must be at least 6 characters" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new User({ username, email, password: hashedPassword });
         await user.save();
-        
+
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.status(201).json({ token, username });
     } catch (err) {
@@ -82,7 +97,7 @@ app.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
-        
+
         if (!user || !(await bcrypt.compare(password, user.password))) {
             return res.status(401).json({ message: "Invalid credentials" });
         }
